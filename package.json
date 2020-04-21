@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
     "start:angular": "ng serve",
     "start:fake-server": "json-server --watch \"db.json\""
   },
@@ -38,7 +38,6 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.1",
     "concurrently": "^4.0.1",
-    "cypress": "^4.4.1",
     "jasmine-core": "~2.99.1",
     "jasmine-marbles": "^0.6.0",
     "jasmine-spec-reporter": "~4.2.1",
