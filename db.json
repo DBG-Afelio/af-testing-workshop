@@ -43,6 +43,14 @@
         "tomato"
       ],
       "id": 2
+    },
+    {
+      "name": "test",
+      "toppings": [
+        "bacon"
+      ],
+      "sizes": [],
+      "id": 3
     }
   ]
 }
