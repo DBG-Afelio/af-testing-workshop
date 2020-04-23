@@ -1,4 +1,5 @@
 /// <reference types="cypress"/>
+/// <reference path="../../support/custom-commands.d.ts" />
 describe('pizzas page', () => {
 
     const mockService = (value) => {
@@ -44,6 +45,7 @@ describe('pizzas page', () => {
     });
 
     it('should go to new pizza form', () => {
+        cy.visit('/');
         cy.getByData('new-pizza-btn').click();
         cy.url().should('match', /.*\/new$/)
     });
