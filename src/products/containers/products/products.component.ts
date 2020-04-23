@@ -13,6 +13,7 @@ import { PizzasAction, PizzasState } from '../../store';
     <div class="products" *ngIf="(pizzas$ | async) as pizzas">
       <div class="products__new">
         <a
+            data-cy="new-pizza-btn"
           class="btn btn__ok"
           routerLink="./new">
           New Pizza
@@ -23,7 +24,6 @@ import { PizzasAction, PizzasState } from '../../store';
           No pizzas, add one to get started.
         </div>
         <pizza-item
-            data-cy="pizza"
           *ngFor="let pizza of (pizzas)"
           [pizza]="pizza">
         </pizza-item>
