@@ -1,12 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 import { Pizza } from '../../models/pizza.model';
-import { PizzasService } from '../../services/pizzas.service';
-
-import * as fromStore from '../../store';
-import { Store, Select } from '@ngxs/store';
 import { PizzasAction, PizzasState } from '../../store';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'products',
@@ -16,13 +13,14 @@ import { Observable } from 'rxjs';
     <div class="products" data-cypress="product-component" *ngIf="(pizzas$ | async) as pizzas">
       <div class="products__new">
         <a
+            data-cy="new-pizza-btn"
           class="btn btn__ok"
           routerLink="./new">
           New Pizza
         </a>
       </div>
       <div class="products__list">
-        <div *ngIf="!((pizzas)?.length)">
+        <div *ngIf="!((pizzas)?.length)" data-cy="no-pizza">
           No pizzas, add one to get started.
         </div>
         <pizza-item
@@ -35,12 +33,12 @@ import { Observable } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
 
-  @Select(PizzasState.pizzas)
-  public pizzas$: Observable<Pizza[]>;
+    @Select(PizzasState.pizzas)
+    public pizzas$: Observable<Pizza[]>;
 
-  constructor(private store: Store) {}
+    constructor(private store: Store) { }
 
-  ngOnInit() {
-    this.store.dispatch(new PizzasAction.LoadList());
-  }
+    ngOnInit() {
+        this.store.dispatch(new PizzasAction.LoadList());
+    }
 }
