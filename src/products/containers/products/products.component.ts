@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['products.component.scss'],
   template: `
-    <div class="products" *ngIf="(pizzas$ | async) as pizzas">
+    <div class="products" data-cypress="product-component" *ngIf="(pizzas$ | async) as pizzas">
       <div class="products__new">
         <a
           class="btn btn__ok"
