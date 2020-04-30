@@ -15,11 +15,9 @@
   ],
   "pizzas": [
     {
-      "name": "The Inferno",
+      "name": "The Inferno DBG",
       "toppings": [
         "chili",
-        "bacon",
-        "mushroom",
         "basil",
         "pepperoni",
         "olive",
@@ -29,7 +27,8 @@
         "pepper",
         "tomato"
       ],
-      "id": 1
+      "id": 1,
+      "sizes": []
     },
     {
       "name": "Seaside Surfin'",
@@ -44,6 +43,14 @@
         "tomato"
       ],
       "id": 2
+    },
+    {
+      "name": "test",
+      "toppings": [
+        "bacon"
+      ],
+      "sizes": [],
+      "id": 3
     }
   ]
 }
