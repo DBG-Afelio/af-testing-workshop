@@ -155,3 +155,16 @@ describe('Action  assertion', () => {
     // })
   })
 });
+
+
+// Génération de flux
+
+// pouvoir déclencher des actions
+// Type avec touche meta
+// Focus, Blur et message d'erreur
+// clear()
+// Scroll (visible), mouseover
+// click avec position => click sur le toppings ou a côté
+
+// plusieurs example/kata de flux métiers intégrés
+

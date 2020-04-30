@@ -37,3 +37,33 @@ describe('First assertion', () => {
   });
 
 });
+
+
+// Checker le payload du backend (test integration)
+
+// Logique de mock et non mock
+// Alias
+// fixture
+// Cy.wait pour un ou deux appels (ex toppings, listPizzas)
+
+// stub & spies
+// pour les methodes window (sessionStorage, confirm)
+
+// location => exemple d'url quand on click sur la pizza => examples/
+  // cy.go('back')
+  // cy.reload(true)
+  // cy.visit('https://example.cypress.io/commands/navigation', {
+    timeout: 50000, // increase total time for the visit to resolve
+    onBeforeLoad (contentWindow) {
+      // contentWindow is the remote page's window object
+      expect(typeof contentWindow === 'object').to.be.true
+    },
+    onLoad (contentWindow) {
+      // contentWindow is the remote page's window object
+      expect(typeof contentWindow === 'object').to.be.true
+    },
+  })
+
+  // cy.route
+  // cy.request
+  // cy.server
