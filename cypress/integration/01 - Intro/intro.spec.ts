@@ -15,6 +15,8 @@ describe('Introduction', () => {
         cy.get('div .products');
         // This is better
         cy.get('[data-cy=product-component]');
+        // We can create a commands to do it
+        cy.getByData('product-component');
     });
 
     it.skip('should get element with a data-cy fails', () => {
