@@ -6,11 +6,11 @@ import { Pizza } from '../../models/pizza.model';
 import { PizzasAction, PizzasState } from '../../store';
 
 @Component({
-  selector: 'products',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['products.component.scss'],
-  template: `
-    <div class="products" data-cypress="product-component" *ngIf="(pizzas$ | async) as pizzas">
+    selector: 'products',
+    // changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['products.component.scss'],
+    template: `
+    <div class="products" data-cy="product-component" *ngIf="(pizzas$ | async) as pizzas">
       <div class="products__new">
         <a
             data-cy="new-pizza-btn"
