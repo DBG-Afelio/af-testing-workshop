@@ -1,37 +1,32 @@
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectionStrategy,
-  OnInit,
-  OnDestroy,
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
 } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { Pizza } from '../../models/pizza.model';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
-  selector: 'pizza-form',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['pizza-form.component.scss'],
-  template: `
+    selector: 'pizza-form',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['pizza-form.component.scss'],
+    template: `
     <div class="pizza-form">
       <form [formGroup]="form">
 
         <label>
           <h4>Pizza name</h4>
           <input
+            data-cy="title-input"
             type="text"
             formControlName="name"
             placeholder="e.g. Pepperoni"
@@ -60,6 +55,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 
         <div class="pizza-form__actions">
           <button
+            data-cy="create-pizza-button"
             id="create_button"
             type="button"
             class="btn btn__ok"
@@ -78,6 +74,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
             </button>
 
             <button
+            data-cy="delete-button"
               type="button"
               class="btn btn__warning"
               (click)="removePizza(form)">
@@ -91,73 +88,73 @@ import { BehaviorSubject, Subject } from 'rxjs';
   `,
 })
 export class PizzaFormComponent implements OnInit, OnChanges, OnDestroy {
-  exists = new BehaviorSubject<boolean>(false);
+    exists = new BehaviorSubject<boolean>(false);
 
-  @Input() pizza: Pizza;
-  @Input() toppings: string[];
+    @Input() pizza: Pizza;
+    @Input() toppings: string[];
 
-  @Output() selected = new EventEmitter<Pizza>();
-  @Output() create = new EventEmitter<Pizza>();
-  @Output() update = new EventEmitter<Pizza>();
-  @Output() remove = new EventEmitter<Pizza>();
+    @Output() selected = new EventEmitter<Pizza>();
+    @Output() create = new EventEmitter<Pizza>();
+    @Output() update = new EventEmitter<Pizza>();
+    @Output() remove = new EventEmitter<Pizza>();
 
-  form = this.fb.group({
-    name: ['', Validators.required],
-    toppings: [[]],
-    sizes: [[]],
-  });
+    form = this.fb.group({
+        name: ['', Validators.required],
+        toppings: [[]],
+        sizes: [[]],
+    });
 
-  private destroyObservables = new Subject();
+    private destroyObservables = new Subject();
 
-  constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder) { }
 
-  get nameControl() {
-    return this.form.get('name') as FormControl;
-  }
-
-  get nameControlInvalid() {
-    return this.nameControl.hasError('required') && this.nameControl.touched;
-  }
-
-  ngOnInit() {
-    this.form
-      .get('toppings')
-      .valueChanges.pipe(
-        map(toppings => ({ ...this.pizza, toppings })),
-        takeUntil(this.destroyObservables)
-      )
-      .subscribe(value => this.selected.emit(value));
-      console.log('init');
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.pizza && this.pizza && this.pizza.id) {
-      this.exists.next(true);
-      this.form.patchValue(this.pizza, {emitEvent: false, onlySelf: true});
+    get nameControl() {
+        return this.form.get('name') as FormControl;
     }
-  }
 
-  ngOnDestroy() {
-    this.destroyObservables.next();
-    console.log('destroy');
-  }
-
-  createPizza(form: FormGroup) {
-    const { value, valid } = form;
-    if (valid) {
-      this.create.emit(value);
+    get nameControlInvalid() {
+        return this.nameControl.hasError('required') && this.nameControl.touched;
     }
-  }
 
-  updatePizza(form: FormGroup) {
-    const { value, valid, touched } = form;
-    if (touched && valid) {
-      this.update.emit({ ...this.pizza, ...value });
+    ngOnInit() {
+        this.form
+            .get('toppings')
+            .valueChanges.pipe(
+                map(toppings => ({ ...this.pizza, toppings })),
+                takeUntil(this.destroyObservables)
+            )
+            .subscribe(value => this.selected.emit(value));
+        console.log('init');
     }
-  }
 
-  removePizza(form: FormGroup) {
-    const { value } = form;
-    this.remove.emit({ ...this.pizza, ...value });
-  }
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.pizza && this.pizza && this.pizza.id) {
+            this.exists.next(true);
+            this.form.patchValue(this.pizza, { emitEvent: false, onlySelf: true });
+        }
+    }
+
+    ngOnDestroy() {
+        this.destroyObservables.next();
+        console.log('destroy');
+    }
+
+    createPizza(form: FormGroup) {
+        const { value, valid } = form;
+        if (valid) {
+            this.create.emit(value);
+        }
+    }
+
+    updatePizza(form: FormGroup) {
+        const { value, valid, touched } = form;
+        if (touched && valid) {
+            this.update.emit({ ...this.pizza, ...value });
+        }
+    }
+
+    removePizza(form: FormGroup) {
+        const { value } = form;
+        this.remove.emit({ ...this.pizza, ...value });
+    }
 }
