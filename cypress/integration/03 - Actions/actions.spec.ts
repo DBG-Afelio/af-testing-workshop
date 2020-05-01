@@ -226,7 +226,10 @@ describe('Action  assertion', () => {
             .and('not.descendants', 'img[src="/assets/img/toppings/mushroom.svg"]')
             .and('not.descendants', 'img[src="/assets/img/toppings/chili.svg"]')
             .and('not.descendants', 'img[src="/assets/img/toppings/onion.svg"]');
-        // TODO delete it
+    });
+
+    it('should delete a pizza', () => {
+        // TODO
     });
 
     it('should scroll to a pizza', () => {
@@ -256,7 +259,6 @@ describe('Action  assertion', () => {
 
 // pouvoir déclencher des actions
 // Focus, Blur et message d'erreur
-// Scroll (visible), mouseover
 // click avec position => click sur le toppings ou a côté
 
 // plusieurs example/kata de flux métiers intégrés
