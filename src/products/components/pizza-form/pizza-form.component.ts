@@ -33,6 +33,7 @@ import { Pizza } from '../../models/pizza.model';
             class="pizza-form__input"
             [class.error]="nameControlInvalid">
           <div
+          data-cy="error-message"
             class="pizza-form__error"
             *ngIf="nameControlInvalid">
             <p>Pizza must have a name</p>
@@ -66,6 +67,7 @@ import { Pizza } from '../../models/pizza.model';
 
           <ng-container *ngIf="exists | async">
             <button
+            data-cy="update-pizza-button"
               id="update_button"
               type="button"
               class="btn btn__ok"

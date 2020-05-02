@@ -31,6 +31,7 @@ Cypress.Commands.add('getToppingByName', (name) => {
 });
 
 Cypress.Commands.add('getPizzaByName', (name) => {
-    return cy.get('[data-cy="pizza"]')
-        .contains(name);
+    return cy.get('[data-cy=pizza]')
+        .contains(name)
+        .parent()
 });
