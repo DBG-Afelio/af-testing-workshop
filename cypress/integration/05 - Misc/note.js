@@ -1,42 +1,36 @@
-/*
- - Viewport
- - screenshot
- it('Cypress.Screenshot.defaults() - change default config of screenshots', function () {
-      Cypress.Screenshot.defaults({
-        blackout: ['.foo'],
-        capture: 'viewport',
-        clip: { x: 0, y: 0, width: 200, height: 200 },
-        scale: false,
-        disableTimersAndAnimations: true,
-        screenshotOnRunFailure: true,
-        beforeScreenshot () { },
-        afterScreenshot () { },
-      })
+/// <reference types="cypress" />
+describe('Misc', () => {
+    it('should be able to call lodash by cypress', () => {
+        let obj = {};
+        obj = Cypress._.set(obj, 'key', 'value');
+        expect(obj).to.eql({ key: 'value' });
+    });
+
+    it('should take a screenshot', () => {
+        cy.visit('/');
+        cy.screenshot();
+    });
+
+    it('should take a screenshot of a pizza', () => {
+        cy.visit('/');
+        cy.getByData('pizza').eq(0).screenshot();
+    });
+
+    it('should iterate to an array using JQuery by cypress', () => {
+        Cypress.$.each([0, 1, 2, 3], (index, value) => {
+            expect(index).to.eq(value)
+        })
+    });
+
+    it('should get a pizza on an Iphone 6', () => {
+        cy.viewport('iphone-6');
+        cy.visit('/');
+        cy.getByData('pizza');
     })
- - variable d'environement
 
- => utils ...
-it('Cypress._ - call a lodash method', () => {
-  // https://on.cypress.io/_
-  cy.request('https://jsonplaceholder.cypress.io/users')
-    .then((response) => {
-      let ids = Cypress._.chain(response.body).map('id').take(3).value()
-
-      expect(ids).to.deep.eq([1, 2, 3])
+    it('should get a pizza on a 500X600 screen', () => {
+        cy.viewport(500, 600);
+        cy.visit('/');
+        cy.getByData('pizza');
     })
-})
-
-
-it('Cypress.$ - call a jQuery method', () => {
-  // https://on.cypress.io/$
-  let $li = Cypress.$('.utility-jquery li:first')
-
-  cy.wrap($li)
-    .should('not.have.class', 'active')
-    .click()
-    .should('have.class', 'active')
-})
-
-=> Viewport
-=> window
-*/
+});
