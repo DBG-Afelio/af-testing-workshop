@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, throwError, Subject } from 'rxjs';
+import { catchError, timeout, timeInterval } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Pizza } from '../models/pizza.model';
 
 @Injectable()
 export class PizzasService {
+
   constructor(private http: HttpClient) {}
 
   getPizzas(): Observable<Pizza[]> {
@@ -16,6 +17,7 @@ export class PizzasService {
       .get<Pizza[]>(`${environment.baseUrl}/pizzas`)
       .pipe(catchError((error: any) => throwError(error.json())));
   }
+
 
   createPizza(payload: Pizza): Observable<Pizza> {
     return this.http

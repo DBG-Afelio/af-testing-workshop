@@ -80,6 +80,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
             <button
               type="button"
               class="btn btn__warning"
+              data-cy="delete-button"
               (click)="removePizza(form)">
               Delete Pizza
             </button>

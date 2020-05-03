@@ -1,4 +1,6 @@
 /*
+
+LFA
  - Viewport
  - screenshot
  it('Cypress.Screenshot.defaults() - change default config of screenshots', function () {

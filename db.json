@@ -18,14 +18,12 @@
       "name": "The Inferno DB",
       "toppings": [
         "chili",
-        "basil",
         "pepperoni",
-        "olive",
-        "sweetcorn",
         "anchovy",
         "mozzarella",
         "pepper",
-        "tomato"
+        "tomato",
+        "sweetcorn"
       ],
       "id": 1,
       "sizes": []
@@ -45,12 +43,30 @@
       "id": 2
     },
     {
-      "name": "test",
-      "toppings": [
-        "bacon"
-      ],
+      "name": "testgogo<<<<",
+      "toppings": [],
       "sizes": [],
       "id": 3
+    },
+    {
+      "name": "My Favorite",
+      "toppings": [
+        "anchovy",
+        "bacon",
+        "sweetcorn"
+      ],
+      "sizes": [],
+      "id": 8
+    },
+    {
+      "name": "My Favorite",
+      "toppings": [
+        "anchovy",
+        "bacon",
+        "sweetcorn"
+      ],
+      "sizes": [],
+      "id": 9
     }
   ]
 }
