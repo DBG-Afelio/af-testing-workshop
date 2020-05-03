@@ -1,68 +1,53 @@
-describe('Querying et Assert', () => {
+describe("Querying et Assert", () => {
   beforeEach(() => {
-    cy.visit('localhost:4200');
+    cy.visit("localhost:4200");
   });
 
-  describe('1. Querying', () => {
+  it("base synthax", () => {
+    cy.get("[data-cy=pizza]:first").should("have.class", "pizza-item");
+  });
 
-    it('base synthax', () => {
-      cy.get('[data-cy=pizza]:first')
-      .should('have.class', 'pizza-item');
-    });
+  it("find an element with specific title", () => {
+    cy.get("pizza-item")
+      .contains("The Inferno DB")
+      .should("have.attr", "href")
+      .and("be.match", /products\/\d+/);
+  });
 
-    it('find an element with specific title', () => {
-      cy.get('pizza-item')
-        .contains('The Inferno DB')
-        .should('have.attr', 'href')
-        .and('be.match', /products\/\d+/);
-    });
+  it("three pizzas have pizza.svg as source of first img markup", () => {
+    cy.get("products")
+      .find("pizza-item")
+      .find("img:first")
+      .should("have.attr", "src")
+      .and("contain", "pizza.svg");
+  });
 
-    it('retryability and chainability', () => {
-      cy.get('products')
-      .should('be.visible')
-      .find('pizza-item a[href]')
-      .should('have.length',3)
+  it("retryability and chainability", () => {
+    cy.get("products")
+      .should("be.visible")
+      .find("pizza-item a[href]")
+      .should("have.length", 3)
       .eq(1)
-      .invoke('attr','href')
-      .should('contain','products');
+      .invoke("attr", "href")
+      .should("contain", "products");
+  });
 
-      cy.get('products')
-      .should('be.visible')
-      .find('pizza-item a[href]')
-      .should('have.length',3)
-      .eq(1)
-      .should('have.attr', 'href')
-      .should('contain','products')
-    });
-
-    it('three pizzas have pizza.svg as source of first img markup', () => {
-      cy.get('products')
-        .find('pizza-item')
-        .find ('img:first')
-        .should('have.attr', 'src')
-        .and('contain', 'pizza.svg')
-    });
-
-    it('Each pizzas has a unique name', () => {
-      cy.get('products')
-        .find('pizza-item')
-        .then(($pizza) => {
-          const tab = [];
-          $pizza.each((index, pizzaItemElement) => {
-            tab.push(Cypress.$(pizzaItemElement)
-              .find('h4')
-              .text())
-          })
-          cy.wrap(tab);
-          // or return cy.wrap(tab);
-        })
-        .should((allText) => {
-          expect(Cypress._.uniq(allText)).be.eql(allText);
-        })
-    });
-  })
+  it("Each pizzas has a unique name", () => {
+    cy.get("products")
+      .find("pizza-item")
+      .then(($pizza) => {
+        const tab = [];
+        $pizza.each((index, pizzaItemElement) => {
+          tab.push(Cypress.$(pizzaItemElement).find("h4").text());
+        });
+        cy.wrap(tab);
+        // or return cy.wrap(tab);
+      })
+      .should((allText) => {
+        expect(Cypress._.uniq(allText)).be.eql(allText);
+      });
+  });
 });
-
 
 // // DBG
 // // get et selecteur saunce jquery
