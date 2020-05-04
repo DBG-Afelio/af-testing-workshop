@@ -7,7 +7,7 @@ describe('Integration tests', () => {
       );
     });
 
-    it('Test different things in a response', () => {
+    it('real toppings request should response with 200 status, have application/json header aand contain an array of 2 elements in its body', () => {
       cy.request('toppings').as('toppings');
       cy.get('@toppings')
       .then((response) => {
@@ -24,7 +24,8 @@ describe('Integration tests', () => {
       .should('have.length', 12);
     });
 
-    it('Request With POST method', () => {
+    it('GET pizzas should return 3 elements', () => {});
+    it('POST pizzas should return the same pizza with an id', () => {
       const newPizza = {
         name: 'My Favorite',
         toppings: ['anchovy', 'bacon', 'sweetcorn'],
@@ -45,9 +46,9 @@ describe('Integration tests', () => {
 
     });
 
-    it('Delete one pizza', () => {});
+    it('Delete one pizza should ', () => {});
 
-    it('Delete all pizzas', () => {});
+    it('call Delete on each pizza should empty pizzas list', () => {});
 
     it('Add a new Pizza, get the details and delete it', () => {});
 
@@ -60,7 +61,7 @@ describe('Mocked test', () => {
 
   });
 
-  it('Mock with a default server value', () => {
+  it('With server default configuration get pizzas should response an empty array', () => {
     cy.server(
       {
         delay: 1000,
@@ -73,7 +74,7 @@ describe('Mocked test', () => {
       .should('have.length', 0);
   });
 
-  it('Mock with a mock', () => {
+  it('With a specific mocked pizza list, interface should show the right number of pizza after 1000ms', () => {
     cy.server(
       {
         delay: 1000,
@@ -119,7 +120,7 @@ describe('Mocked test', () => {
       .should('have.length', 2);
   });
 
-  it('Mock with route and fixture', () => {
+  it('same with fixture and alias', () => {
     cy.server({force404: true}); // valeur par défaut des routes
     cy.route('http://localhost:3000/pizzas', 'fixture:pizzas');
     cy.visit('http://localhost:4200');
@@ -127,7 +128,7 @@ describe('Mocked test', () => {
       .should('have.length', 3);
   });
 
-  it('Wait 2 services', () => {
+  it('Idem sauf qu\'on attends le retour des services toppings+pizza ', () => {
     cy.server(); // valeur par défaut des routes
     cy.route('http://localhost:3000/pizzas', 'fixture:pizzas')
       .as('pizzas');
@@ -144,7 +145,7 @@ describe('Mocked test', () => {
       .should('have.length', 6);
   });
 
-  it.only('Test service unexistent call', () => {
+  it.only('Le service get /toto ne doit pas être appelé', () => {
     cy.server();
     cy.route({
       url: 'http://localhost:3000/toto',
@@ -167,8 +168,8 @@ describe('Mocked test', () => {
   });
 
   it('should toppings selected when navigate on david\'s pizza', () => {});
-  it('should call once toppings when detail page is called after list page', () => {});
   it('should navigate on correct route when click on pizza thumb', () => {});
+  it('should call once toppings when detail page is called after list page', () => {});
 });
 
 describe('Spies / stub', () => {
@@ -208,7 +209,7 @@ describe('Spies / stub', () => {
       .should('has.returned', 'stub' );
   });
 
-  it('Spy on console', () => {
+  it('Quand on navigue sur la page de détails le console.log doit être appelé avec la valeur init', () => {
     cy.visit('http://localhost:4200', {
       onBeforeLoad: (win) => {
         cy.spy(win.console, 'log').as('log');
@@ -220,7 +221,7 @@ describe('Spies / stub', () => {
       .should('has.be.calledWithExactly', 'init');
   });
 
-  it('Spy on window.confirm', (done) => {
+  it('Quand on delete une pizza, la modale confirm doit être appelée et bloquer la suppression', (done) => {
     cy.on('window:confirm', (str) => {
       console.log('confirm');
       expect(str).contain('Are you sure?');
