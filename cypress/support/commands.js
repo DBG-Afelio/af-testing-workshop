@@ -24,14 +24,4 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('getByData', (key) => cy.get(`[data-cy="${key}"]`))
 
-Cypress.Commands.add('getToppingByName', (name) => {
-    return cy.get('[data-cy=topping]').contains(name)
-});
-
-Cypress.Commands.add('getPizzaByName', (name) => {
-    return cy.get('[data-cy=pizza]')
-        .contains(name)
-        .parent()
-});
