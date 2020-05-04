@@ -5,6 +5,8 @@
 
 declare namespace Cypress {
     interface Chainable<Subject> {
-        getByData(text: string): Chainable<any>
+        getByData(text: string): Chainable<any>;
+        getToppingByName(name): Chainable<any>;
+        getPizzaByName(name): Chainable<any>;
     }
 }

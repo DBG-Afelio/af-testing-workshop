@@ -1,26 +1,21 @@
-import {
-  Component,
-  Input,
-  forwardRef,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const PIZZA_TOPPINGS_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => PizzaToppingsComponent),
-  multi: true,
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => PizzaToppingsComponent),
+    multi: true,
 };
 
 @Component({
-  selector: 'pizza-toppings',
-  providers: [PIZZA_TOPPINGS_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['pizza-toppings.component.scss'],
-  template: `
+    selector: 'pizza-toppings',
+    providers: [PIZZA_TOPPINGS_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['pizza-toppings.component.scss'],
+    template: `
     <div class="pizza-toppings">
       <div
+      data-cy="topping"
         class="pizza-toppings-item"
         *ngFor="let topping of toppings;"
         (click)="selectTopping(topping)"
@@ -32,39 +27,39 @@ const PIZZA_TOPPINGS_ACCESSOR = {
   `,
 })
 export class PizzaToppingsComponent implements ControlValueAccessor {
-  @Input() toppings: string[] = [];
+    @Input() toppings: string[] = [];
 
-  value: string[] = [];
+    value: string[] = [];
 
-  private onTouch: Function;
-  private onModelChange: Function;
+    private onTouch: Function;
+    private onModelChange: Function;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef) { }
 
-  registerOnChange(fn: Function) {
-    this.onModelChange = fn;
-  }
-
-  registerOnTouched(fn: Function) {
-    this.onTouch = fn;
-  }
-
-  writeValue(value: string[]) {
-    this.value = value;
-    this.cdr.markForCheck();
-  }
-
-  selectTopping(topping: string) {
-    if (this.existsInToppings(topping)) {
-      this.value = this.value.filter(item => item !== topping);
-    } else {
-      this.value = [...this.value, topping];
+    registerOnChange(fn: Function) {
+        this.onModelChange = fn;
     }
-    this.onTouch();
-    this.onModelChange(this.value);
-  }
 
-  existsInToppings(topping: string) {
-    return this.value.includes(topping);
-  }
+    registerOnTouched(fn: Function) {
+        this.onTouch = fn;
+    }
+
+    writeValue(value: string[]) {
+        this.value = value;
+        this.cdr.markForCheck();
+    }
+
+    selectTopping(topping: string) {
+        if (this.existsInToppings(topping)) {
+            this.value = this.value.filter(item => item !== topping);
+        } else {
+            this.value = [...this.value, topping];
+        }
+        this.onTouch();
+        this.onModelChange(this.value);
+    }
+
+    existsInToppings(topping: string) {
+        return this.value.includes(topping);
+    }
 }
